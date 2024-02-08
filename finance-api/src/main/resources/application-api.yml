@@ -1,0 +1,18 @@
+springdoc:
+#  packages-to-scan: com.nte.financeapi.controller
+  swagger-ui:
+    # default /swagger-ui.html
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-request-duration: true
+  api-docs:
+    # default /v3/api-docs
+    path: /api-docs
+  show-actuator: true
+
+  # request
+  default-consumes-media-type: application/json
+  # response
+  default-produces-media-type: application/json
+  paths-to-match:
+    - /api/**
