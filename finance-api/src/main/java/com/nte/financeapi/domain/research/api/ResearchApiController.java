@@ -33,7 +33,7 @@ import java.util.List;
 public class ResearchApiController {
 
     private final ResearchService researchService;
-    
+
     @PostMapping
     @Operation(summary = "Create Research", description = "research 생성")
     public void createResearch(@RequestBody @Valid CreateResearchRequest request) {

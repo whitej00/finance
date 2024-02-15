@@ -8,10 +8,10 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReadResearchListResponse {
 
-    private List<ReadResearchResponse> readResearchResponseDtoList;
+    private List<ReadResearchResponse> readResearchResponseList;
 
     @Builder
-    public ReadResearchListResponse(List<ReadResearchResponse> readResearchResponseDtoList) {
-        this.readResearchResponseDtoList = readResearchResponseDtoList;
+    public ReadResearchListResponse(List<ReadResearchResponse> readResearchResponseList) {
+        this.readResearchResponseList = readResearchResponseList;
     }
 }

@@ -1,0 +1,6 @@
+spring:
+  config:
+    import:
+      - classpath:application-api.yml
+      - classpath:application-core.yml
+      - classpath:application-key.yml

@@ -76,7 +76,7 @@ public class ResearchService {
                 .toList();
 
         return ReadResearchListResponse.builder()
-                .readResearchResponseDtoList(dtoList)
+                .readResearchResponseList(dtoList)
                 .build();
     }
 
@@ -100,7 +100,7 @@ public class ResearchService {
                 .toList();
 
         return ReadResearchListResponse.builder()
-                .readResearchResponseDtoList(dtoList)
+                .readResearchResponseList(dtoList)
                 .build();
     }
 }
