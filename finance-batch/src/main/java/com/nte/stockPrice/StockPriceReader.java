@@ -3,7 +3,7 @@ package com.nte.stockPrice;
 import com.nte.financedcore.domain.Stock;
 import com.nte.financedcore.repository.StockPriceRepository;
 import com.nte.financedcore.repository.StockRepository;
-import com.nte.financedcore.service.MyDataCommon;
+import com.nte.financedcore.common.MyDataCommon;
 import com.nte.stockPrice.dto.StockDto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

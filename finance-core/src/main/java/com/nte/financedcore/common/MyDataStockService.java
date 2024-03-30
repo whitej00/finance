@@ -1,4 +1,4 @@
-package com.nte.financedcore.service;
+package com.nte.financedcore.common;
 
 import com.nte.financedcore.domain.Stock;
 import com.nte.financedcore.repository.StockRepository;

@@ -1,4 +1,4 @@
-package com.nte.financedcore.service;
+package com.nte.financedcore.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ import java.util.Map;
 @Service
 public class MyDataCommon {
 
-    @Value("${mydata-key}")
+    @Value("${mydata.key}")
     private String KEY;
 
     /**
