@@ -14,7 +14,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 public class FinanceApiApplication {
 
     public static void main(String[] args) {
-//        System.setProperty("spring.config.name", "application-api, application-core, application-key");
         SpringApplication.run(FinanceApiApplication.class, args);
     }
 }

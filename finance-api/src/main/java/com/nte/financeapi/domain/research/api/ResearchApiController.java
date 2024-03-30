@@ -22,7 +22,7 @@ import java.util.List;
 
 
 
-/**
+/**r
  * There is no "update" or "delete" because of the rating system
  * When the user table is created, it will be modified
  * */
@@ -70,9 +70,8 @@ public class ResearchApiController {
         return new Response<>(response);
     }
 
-
     @GetMapping("/by-tag")
-    @Operation(summary = "Ready Research by Tag", description = "선택된 Tag를 포함 하는 Research 조히")
+    @Operation(summary = "Read Research by Tag", description = "선택된 Tag를 포함 하는 Research 조히")
 
     public Response<ReadResearchListResponse> readResearchAllByTag(@RequestParam List<Long> tagIdList){
         ReadResearchRequest request = new ReadResearchRequest(tagIdList);
