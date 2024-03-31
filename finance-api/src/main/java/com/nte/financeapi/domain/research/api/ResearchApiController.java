@@ -2,7 +2,6 @@ package com.nte.financeapi.domain.research.api;
 
 import com.nte.financeapi.global.common.response.Response;
 import com.nte.financeapi.domain.research.dto.request.ReadResearchRequest;
-import com.nte.financeapi.domain.research.dto.response.ReadResearchListResponse;
 import com.nte.financeapi.domain.research.service.ResearchService;
 import com.nte.financeapi.domain.research.dto.request.CreateResearchRequest;
 import com.nte.financeapi.domain.research.dto.response.ReadResearchResponse;
@@ -49,21 +48,15 @@ public class ResearchApiController {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ResearchResponseSchema.class)))
                     })
     })
-    public Response<ReadResearchListResponse> readResearchAll(){
-        ReadResearchListResponse response = researchService.findAll();
-        return new Response<>(response);
+    public Response<List<ReadResearchResponse>> readResearchAll(){
+        List<ReadResearchResponse> readResearchResponseList = researchService.findAll();
+        return new Response<>(readResearchResponseList);
     }
     private static class ResearchResponseSchema extends Response<List<Research>> {
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Read Research by Id", description = "id로 research 조회")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "성공",
-                    content = {
-                            @Content(schema = @Schema(implementation = Response.class))
-                    })
-    })
     public Response<ReadResearchResponse> readResearchById(@PathVariable("id") Long id){
         ReadResearchResponse response = researchService.findById(id);
 
@@ -72,12 +65,11 @@ public class ResearchApiController {
 
     @GetMapping("/by-tag")
     @Operation(summary = "Read Research by Tag", description = "선택된 Tag를 포함 하는 Research 조히")
-
-    public Response<ReadResearchListResponse> readResearchAllByTag(@RequestParam List<Long> tagIdList){
+    public Response<List<ReadResearchResponse>> readResearchAllByTag(@RequestParam List<Long> tagIdList){
         ReadResearchRequest request = new ReadResearchRequest(tagIdList);
-        ReadResearchListResponse response = researchService.findAllByTag(request);
+        List<ReadResearchResponse> readResearchResponseList = researchService.findAllByTag(request);
 
-        return new Response<>(response);
+        return new Response<>(readResearchResponseList);
     }
 
 }

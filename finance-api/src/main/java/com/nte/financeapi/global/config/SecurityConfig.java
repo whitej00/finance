@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -78,15 +79,23 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "auth/join", "/login", "auth/refresh").permitAll()
+                        .requestMatchers("/", "/auth/join", "/auth/login","/login", "/auth/refresh",
+                                "/api/**",
+                                "/api-docs/**", "/api/authenticate", "/v2/api-docs", "/v3/api-docs", "/v3/api-docs/**",
+                                "/swagger-resources", "/swagger-resources/**",
+                                "/configuration/ui", "/configuration/security",
+                                "/swagger-ui/**", "/webjars/**", "/swagger-ui.html").permitAll()
                         .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated());
 
         http
                 .addFilterAt(new JWTFilter(jwtUtil), CustomAuthenticationFilter.class);
 
+
+        CustomAuthenticationFilter filter = new CustomAuthenticationFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshTokenService);
+        filter.setFilterProcessesUrl("/auth/login");
         http
-                .addFilterAt(new CustomAuthenticationFilter(authenticationManager(authenticationConfiguration), jwtUtil, refreshTokenService), UsernamePasswordAuthenticationFilter.class);
+                .addFilterAt(filter, UsernamePasswordAuthenticationFilter.class);
 
         http
                 .addFilterBefore(new CustomLogoutFilter(jwtUtil, refreshTokenService), LogoutFilter.class);

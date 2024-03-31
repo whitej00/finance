@@ -16,3 +16,4 @@ springdoc:
   default-produces-media-type: application/json
   paths-to-match:
     - /api/**
+    - /auth/**

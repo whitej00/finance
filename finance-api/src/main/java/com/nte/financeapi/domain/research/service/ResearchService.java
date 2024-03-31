@@ -1,6 +1,5 @@
 package com.nte.financeapi.domain.research.service;
 
-import com.nte.financeapi.domain.research.dto.response.ReadResearchListResponse;
 import com.nte.financeapi.domain.research.dto.request.CreateResearchRequest;
 import com.nte.financeapi.domain.research.dto.request.ReadResearchRequest;
 import com.nte.financeapi.domain.research.dto.response.ReadResearchResponse;
@@ -60,10 +59,10 @@ public class ResearchService {
                 .build();
     }
 
-    public ReadResearchListResponse findAll(){
+    public List<ReadResearchResponse> findAll(){
         List<Research> researchList = researchRepository.findAll();
 
-        List<ReadResearchResponse> dtoList = researchList.stream()
+        return researchList.stream()
                 .map(research -> ReadResearchResponse.builder()
                         .id(research.getId())
                         .title(research.getTitle())
@@ -74,16 +73,12 @@ public class ResearchService {
                         .targetPrice(research.getTargetPrice())
                         .build())
                 .toList();
-
-        return ReadResearchListResponse.builder()
-                .readResearchResponseList(dtoList)
-                .build();
     }
 
-    public ReadResearchListResponse findAllByTag(ReadResearchRequest request){
+    public List<ReadResearchResponse> findAllByTag(ReadResearchRequest request){
         List<Tag> tagList = tagRepository.findByIdIn(request.getTagIdList());
 
-        List<ReadResearchResponse> dtoList = tagList.stream()
+        return tagList.stream()
                 .map(Tag::getResearchTagList)
                 .flatMap(Collection::stream)
                 .map(ResearchTag::getResearch)
@@ -98,9 +93,5 @@ public class ResearchService {
                         .targetPrice(research.getTargetPrice())
                         .build())
                 .toList();
-
-        return ReadResearchListResponse.builder()
-                .readResearchResponseList(dtoList)
-                .build();
     }
 }
