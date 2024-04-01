@@ -4,4 +4,5 @@ spring:
       - classpath:application-api.yml
       - classpath:application-core.yml
       - classpath:application-key.yml
-
+#springdoc:
+#  show-login-endpoint: true

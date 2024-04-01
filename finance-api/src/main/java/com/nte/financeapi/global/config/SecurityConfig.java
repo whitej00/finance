@@ -79,7 +79,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/auth/join", "/auth/login","/login", "/auth/refresh",
+                        .requestMatchers("/", "/auth/**", "/auth/login","/login", "/auth/refresh",
                                 "/api/**",
                                 "/api-docs/**", "/api/authenticate", "/v2/api-docs", "/v3/api-docs", "/v3/api-docs/**",
                                 "/swagger-resources", "/swagger-resources/**",
