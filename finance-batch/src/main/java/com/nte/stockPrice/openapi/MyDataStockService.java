@@ -1,4 +1,4 @@
-package com.nte.financedcore.common;
+package com.nte.stockPrice.openapi;
 
 import com.nte.financedcore.domain.Stock;
 import com.nte.financedcore.repository.StockRepository;

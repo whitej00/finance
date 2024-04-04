@@ -1,12 +1,13 @@
 package com.nte.financedcore.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,11 +16,23 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     private String username;
     private String password;
     private String role;
+
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
+
+    private Long rating;
+
+    @OneToMany(mappedBy = "user")
+    List<Research> researchList = new ArrayList<>();
+
+    public void addResearch(Research research){
+        this.researchList.add(research);
+    }
 
     @Builder
     public User(String username, String password, String role) {

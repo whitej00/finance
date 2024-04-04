@@ -16,8 +16,8 @@ public class JWTUtil {
     public final String ACCESS_TOKEN_CATEGORY = "access";
     public final String REFRESH_TOKEN_CATEGORY = "refresh";
 
-    public final Long ACCESS_TOKEN_EXPIRED_MS = 15 * 1000L;
-    public final Long REFRESH_TOKEN_EXPIRED_MS = 15 * 1000L * 1000L;
+    public final Long ACCESS_TOKEN_EXPIRED_MS = 30 * 1000L;
+    public final Long REFRESH_TOKEN_EXPIRED_MS = 30 * 1000L * 1000L;
 
     public JWTUtil(@Value("${jwt.secret}")String secret) {
 

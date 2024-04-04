@@ -30,11 +30,12 @@ public class InitTagController {
         for(Stock stock : stockList){
             StockTag stockTag = new StockTag(stock);
 
-            Tag tag = new Tag(stock.getName(), stockTag);
+            Tag tag = new Tag(stock.getName(), "stock", stockTag);
 
             tagRepository.save(tag);
         }
     }
+
 
     /**
      * tag : stock = 1 : N
@@ -42,7 +43,7 @@ public class InitTagController {
      * ex) Tech = ["kakao", "naver"..]
      * */
     @GetMapping("/init/tagSector")
-    public void createTagSector(){
-
+    public void createTagSector(String div){
+        //TODO
     }
 }

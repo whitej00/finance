@@ -16,6 +16,7 @@ public class Tag {
     private Long id;
 
     private String name;
+    private String division;
 
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
     private List<StockTag> stockTagList = new ArrayList<>();
@@ -32,8 +33,9 @@ public class Tag {
         this.researchTagList.add(researchTag);
     }
 
-    public Tag(String name, StockTag stockTag){
+    public Tag(String name, String division, StockTag stockTag){
         this.name = name;
+        this.division = division;
         addStockTag(stockTag);
     }
 }

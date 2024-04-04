@@ -50,21 +50,19 @@ public class RefreshTokenService {
 
     public void refresh(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String refreshToken = jwtUtil.getJwtToken(request.getHeader("Refresh"));
+        String token = request.getHeader("refresh");
+        if (token == null || !token.startsWith("Bearer ")) {
 
-        if(refreshToken == null){
-
-            response.getWriter().print("Refresh token is null");
-
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
             return;
         }
+
+        String refreshToken = jwtUtil.getJwtToken(token);
 
         // valid expiration time
         try {
             jwtUtil.isExpired(refreshToken);
         } catch (ExpiredJwtException e){
-
-            response.getWriter().print("refresh token is expired");
 
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return;
@@ -74,8 +72,6 @@ public class RefreshTokenService {
         String category = jwtUtil.getCategory(refreshToken);
 
         if (!category.equals("refresh")) {
-
-            response.getWriter().print("this token is not refresh token");
 
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return;
@@ -89,21 +85,16 @@ public class RefreshTokenService {
         // matched token does not exist
         if(refreshTokenOptional.isEmpty()){
 
-            response.getWriter().print("invalid refresh token");
-
             response.setStatus(HttpStatus.BAD_REQUEST.value());
 
             return;
         }
 
-        RefreshToken token = refreshTokenOptional.get();
 
-        String refreshTokenDb = jwtUtil.getJwtToken(token.getRefreshToken());
+        String refreshTokenDb = jwtUtil.getJwtToken(refreshTokenOptional.get().getRefreshToken());
 
         // matched token does not exist
         if (!refreshToken.equals(refreshTokenDb)){
-
-            response.getWriter().print("invalid refresh token");
 
             response.setStatus(HttpStatus.BAD_REQUEST.value());
 
@@ -113,8 +104,6 @@ public class RefreshTokenService {
         Optional<User> userOptional = userRepository.findByUsername(username);
         if(userOptional.isEmpty()){
 
-            response.getWriter().print("invalid refresh token");
-
             response.setStatus(HttpStatus.BAD_REQUEST.value());
 
             return;
@@ -122,6 +111,6 @@ public class RefreshTokenService {
 
         String accessToken = jwtUtil.createJwt(jwtUtil.ACCESS_TOKEN_CATEGORY, username, role, jwtUtil.ACCESS_TOKEN_EXPIRED_MS);
 
-        response.addHeader("Access", accessToken);
+        response.addHeader("access", accessToken);
     }
 }

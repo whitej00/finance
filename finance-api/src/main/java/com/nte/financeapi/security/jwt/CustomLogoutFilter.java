@@ -45,11 +45,9 @@ public class CustomLogoutFilter extends GenericFilterBean {
         }
 
 
-        String refreshToken = jwtUtil.getJwtToken(request.getHeader("Refresh"));
+        String refreshToken = jwtUtil.getJwtToken(request.getHeader("refresh"));
 
         if(refreshToken == null){
-
-            response.getWriter().print("Refresh token is null");
 
             return;
         }
@@ -59,8 +57,6 @@ public class CustomLogoutFilter extends GenericFilterBean {
             jwtUtil.isExpired(refreshToken);
         } catch (ExpiredJwtException e){
 
-            response.getWriter().print("refresh token is expired");
-
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return;
         }
@@ -69,8 +65,6 @@ public class CustomLogoutFilter extends GenericFilterBean {
         String category = jwtUtil.getCategory(refreshToken);
 
         if (!category.equals("refresh")) {
-
-            response.getWriter().print("this token is not refresh token");
 
             response.setStatus(HttpStatus.BAD_REQUEST.value());
             return;
@@ -89,7 +83,6 @@ public class CustomLogoutFilter extends GenericFilterBean {
 
         refreshTokenService.deleteAllByUsername(username);
 
-        response.getWriter().print("success logout");
         response.setStatus(HttpServletResponse.SC_OK);
     }
 }

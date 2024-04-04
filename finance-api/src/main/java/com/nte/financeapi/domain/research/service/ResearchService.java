@@ -3,11 +3,11 @@ package com.nte.financeapi.domain.research.service;
 import com.nte.financeapi.domain.research.dto.request.CreateResearchRequest;
 import com.nte.financeapi.domain.research.dto.request.ReadResearchRequest;
 import com.nte.financeapi.domain.research.dto.response.ReadResearchResponse;
-import com.nte.financedcore.domain.Research;
-import com.nte.financedcore.domain.ResearchTag;
-import com.nte.financedcore.domain.Tag;
+import com.nte.financedcore.domain.*;
+import com.nte.financedcore.repository.EvaluationStatusRepository;
 import com.nte.financedcore.repository.ResearchRepository;
 import com.nte.financedcore.repository.TagRepository;
+import com.nte.financedcore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,9 @@ import java.util.List;
 public class ResearchService {
 
     private final TagRepository tagRepository;
+    private final UserRepository userRepository;
     private final ResearchRepository researchRepository;
+    private final EvaluationStatusRepository evaluationStatusRepository;
 
     @Transactional
     public void createResearch(CreateResearchRequest request){
@@ -32,7 +34,21 @@ public class ResearchService {
                         .build())
                 .toList();
 
+        User user = userRepository.findById(request.getUserId()).get();
+
+        EvaluationStatus evaluationStatus = EvaluationStatus.builder()
+                .evaluated(Boolean.FALSE)
+                .targetRangeStart(request.getTargetRangeStart())
+                .targetRangeEnd(request.getTargetRangeEnd())
+                .targetPrice(request.getTargetPrice())
+                .marketPrice(0L)
+                .build();
+
+        evaluationStatusRepository.save(evaluationStatus);
+
         Research research = Research.builder()
+                .user(user)
+                .evaluationStatus(evaluationStatus)
                 .title(request.getTitle())
                 .content(request.getContent())
                 .createdDate(request.getCreatedDate())
@@ -49,7 +65,7 @@ public class ResearchService {
         Research research = researchRepository.findById(id).get();
 
         return ReadResearchResponse.builder()
-                .id(research.getId())
+                .username(research.getUser().getUsername())
                 .title(research.getTitle())
                 .content(research.getContent())
                 .createdDate(research.getCreatedDate())
@@ -64,7 +80,7 @@ public class ResearchService {
 
         return researchList.stream()
                 .map(research -> ReadResearchResponse.builder()
-                        .id(research.getId())
+                        .username(research.getUser().getUsername())
                         .title(research.getTitle())
                         .content(research.getContent())
                         .createdDate(research.getCreatedDate())
@@ -84,7 +100,7 @@ public class ResearchService {
                 .map(ResearchTag::getResearch)
                 .distinct()
                 .map(research -> ReadResearchResponse.builder()
-                        .id(research.getId())
+                        .username(research.getUser().getUsername())
                         .title(research.getTitle())
                         .content(research.getContent())
                         .createdDate(research.getCreatedDate())

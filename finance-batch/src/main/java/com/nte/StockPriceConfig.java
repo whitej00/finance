@@ -17,9 +17,11 @@ import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.List;
@@ -30,9 +32,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @EnableAutoConfiguration
 @ComponentScan(basePackages = {"com.nte.*"})
-//@EntityScan(basePackages = {"com.nte.financedatabase"})
-//@EnableJpaRepositories(basePackages = {"com.nte.financedatabase"})
-public class StockPriceConfiguration {
+@EntityScan(basePackages = {"com.nte.*"})
+@EnableJpaRepositories(basePackages = {"com.nte.*"})
+public class StockPriceConfig {
 
     private final StockRepository stockRepository;
     private final StockPriceRepository stockPriceRepository;
@@ -62,13 +64,15 @@ public class StockPriceConfiguration {
             for (StockDto stockDto : items) {
                 List<StockPriceDto> stockPriceDtoList = stockDto.getStockPriceDtoList();
 
+                Stock stock = stockRepository.findById(stockDto.getId()).get();
+                System.out.println("stock.getName() = " + stock.getName());
+
                 for (StockPriceDto dto : stockPriceDtoList){
                     StockPrice stockPrice = new StockPrice(
                             dto.getBaseDate(), dto.getOpeningPrice(), dto.getClosingPrice(),
                             dto.getLowPrice(), dto.getHighPrice(), dto.getTradeVolume(),
                             dto.getTradeValue(), dto.getMarketCap()
                     );
-                    Stock stock = stockRepository.findById(stockDto.getId()).get();
 
                     stockPrice.setStock(stock);
                     stockPriceRepository.save(stockPrice);

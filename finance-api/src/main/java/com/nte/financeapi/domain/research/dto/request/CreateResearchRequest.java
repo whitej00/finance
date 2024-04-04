@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CreateResearchRequest {
 
+    private Long userId;
     private String title;
     private String content;
     private LocalDateTime createdDate;

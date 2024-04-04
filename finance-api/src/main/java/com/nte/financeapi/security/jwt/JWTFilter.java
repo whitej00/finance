@@ -27,8 +27,7 @@ public class JWTFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         // Bearer + accessToken
-        String token = request.getHeader("Access");
-
+        String token = request.getHeader("access");
         if (token == null || !token.startsWith("Bearer ")) {
 
             filterChain.doFilter(request, response);
@@ -44,8 +43,6 @@ public class JWTFilter extends OncePerRequestFilter {
             jwtUtil.isExpired(accessToken);
         } catch (ExpiredJwtException e){
 
-            response.getWriter().print("access token is expired");
-
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
@@ -54,8 +51,6 @@ public class JWTFilter extends OncePerRequestFilter {
         String category = jwtUtil.getCategory(accessToken);
 
         if (!category.equals("access")) {
-
-            response.getWriter().print("this token is not accessToken");
 
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;

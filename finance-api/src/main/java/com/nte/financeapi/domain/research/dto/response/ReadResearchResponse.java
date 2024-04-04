@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ReadResearchResponse {
 
-    private Long id;
+    private String username;
     private String title;
     private String content;
     private LocalDateTime createdDate;
@@ -18,8 +18,8 @@ public class ReadResearchResponse {
     private Long targetPrice;
 
     @Builder
-    public ReadResearchResponse(Long id, String title, String content, LocalDateTime createdDate, LocalDate targetRangeStart, LocalDate targetRangeEnd, Long targetPrice) {
-        this.id = id;
+    public ReadResearchResponse(String username, String title, String content, LocalDateTime createdDate, LocalDate targetRangeStart, LocalDate targetRangeEnd, Long targetPrice) {
+        this.username = username;
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;

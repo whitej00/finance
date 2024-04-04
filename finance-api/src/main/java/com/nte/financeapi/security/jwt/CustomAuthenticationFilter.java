@@ -66,8 +66,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         refreshTokenService.deleteAllByUsername(username);
         refreshTokenService.save(dto);
 
-        response.addHeader("Refresh", refreshToken);
-        response.addHeader("Access", accessToken);
+        response.addHeader("refresh", refreshToken);
+        response.addHeader("access", accessToken);
         response.setStatus(HttpServletResponse.SC_OK);
     }
 
