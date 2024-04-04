@@ -29,12 +29,14 @@ public class StockPriceReader implements ItemReader<StockDto> {
 
     @PostConstruct
     private void initializeStocks() {
+
         this.stockList = stockRepository.findAll();
         this.iterator = stockList.iterator();
     }
 
     @Override
     public StockDto read() throws Exception {
+
         if (iterator.hasNext()) {
             Stock stock = iterator.next();
 
@@ -55,8 +57,12 @@ public class StockPriceReader implements ItemReader<StockDto> {
             map.put("beginBasDt", beginBasDt);
             map.put("numOfRows", "30");
 
-            return new StockDto(id, mydataCommon.read(map));
+            return StockDto.builder().
+                    id(id).
+                    json(mydataCommon.read(map)).
+                    build();
         } else {
+
             return null;
         }
     }

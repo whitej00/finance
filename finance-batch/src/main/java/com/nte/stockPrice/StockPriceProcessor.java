@@ -19,11 +19,11 @@ import java.util.List;
 public class StockPriceProcessor implements ItemProcessor<StockDto, StockDto> {
 
     @Override
-    public StockDto process(StockDto dto) throws Exception{
+    public StockDto process(StockDto stockDto) throws Exception{
 
         JSONParser jsonParser = new JSONParser();
 
-        JSONObject jsonObject=(JSONObject)jsonParser.parse(dto.getJson());
+        JSONObject jsonObject=(JSONObject)jsonParser.parse(stockDto.getJson());
         JSONObject response=(JSONObject)jsonObject.get("response");
         JSONObject body=(JSONObject)response.get("body");
         JSONObject items=(JSONObject)body.get("items");
@@ -43,12 +43,21 @@ public class StockPriceProcessor implements ItemProcessor<StockDto, StockDto> {
             Long tradeValue = Long.parseLong((String) obj.get("trPrc"));
             Long marketCap = Long.parseLong((String) obj.get("mrktTotAmt"));
 
-            StockPriceDto stockPriceDto = new StockPriceDto(baseDate, openingPrice, closingPrice, lowPrice, highPrice, tradeVolume, tradeValue, marketCap);
-
-            stockPriceDtoList.add(stockPriceDto);
+            stockPriceDtoList.add(StockPriceDto.builder().
+                    baseDate(baseDate).
+                    openingPrice(openingPrice).
+                    closingPrice(closingPrice).
+                    lowPrice(lowPrice).
+                    highPrice(highPrice).
+                    tradeVolume(tradeVolume).
+                    tradeValue(tradeValue).
+                    marketCap(marketCap).
+                    build()
+            );
         }
-        dto.setStockPriceDtoList(stockPriceDtoList);
 
-        return dto;
+        stockDto.setStockPriceDtoList(stockPriceDtoList);
+
+        return stockDto;
     }
 }

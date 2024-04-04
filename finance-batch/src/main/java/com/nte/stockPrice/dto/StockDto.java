@@ -1,11 +1,12 @@
 package com.nte.stockPrice.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StockDto {
 
     Long id;
@@ -13,6 +14,11 @@ public class StockDto {
 
     private List<StockPriceDto> stockPriceDtoList = new ArrayList<>();
 
+    public void setStockPriceDtoList(List<StockPriceDto> stockPriceDtoList) {
+        this.stockPriceDtoList = stockPriceDtoList;
+    }
+
+    @Builder
     public StockDto(Long id, String json) {
         this.id = id;
         this.json = json;

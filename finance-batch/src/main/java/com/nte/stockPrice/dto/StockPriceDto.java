@@ -1,10 +1,11 @@
 package com.nte.stockPrice.dto;
 
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StockPriceDto {
     //날짜
     private LocalDate baseDate;
@@ -23,6 +24,7 @@ public class StockPriceDto {
     //시가 총액
     private Long marketCap;
 
+    @Builder
     public StockPriceDto(LocalDate baseDate, Long openingPrice, Long closingPrice, Long lowPrice, Long highPrice, Long tradeVolume, Long tradeValue, Long marketCap) {
         this.baseDate = baseDate;
         this.openingPrice = openingPrice;
