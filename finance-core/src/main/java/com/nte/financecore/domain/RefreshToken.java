@@ -1,4 +1,4 @@
-package com.nte.financedcore.domain;
+package com.nte.financecore.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

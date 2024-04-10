@@ -1,6 +1,6 @@
-package com.nte.financedcore.repository;
+package com.nte.financecore.repository;
 
-import com.nte.financedcore.domain.RefreshToken;
+import com.nte.financecore.domain.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

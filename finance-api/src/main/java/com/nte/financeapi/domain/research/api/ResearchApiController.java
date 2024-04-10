@@ -1,11 +1,10 @@
 package com.nte.financeapi.domain.research.api;
 
 import com.nte.financeapi.global.common.response.Response;
-import com.nte.financeapi.domain.research.dto.request.ReadResearchRequest;
 import com.nte.financeapi.domain.research.service.ResearchService;
 import com.nte.financeapi.domain.research.dto.request.CreateResearchRequest;
 import com.nte.financeapi.domain.research.dto.response.ReadResearchResponse;
-import com.nte.financedcore.domain.Research;
+import com.nte.financecore.domain.Research;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,7 +34,7 @@ public class ResearchApiController {
 
     @PostMapping
     @Operation(summary = "Create Research", description = "research 생성")
-    public void createResearch(@RequestBody @Valid CreateResearchRequest request) {
+    public void createResearch(@Valid @RequestBody CreateResearchRequest request) {
 
         researchService.createResearch(request);
     }
@@ -61,15 +60,6 @@ public class ResearchApiController {
         ReadResearchResponse response = researchService.findById(id);
 
         return new Response<>(response);
-    }
-
-    @GetMapping("/by-tag")
-    @Operation(summary = "Read Research by Tag", description = "선택된 Tag를 포함 하는 Research 조히")
-    public Response<List<ReadResearchResponse>> readResearchAllByTag(@RequestParam List<Long> tagIdList){
-        ReadResearchRequest request = new ReadResearchRequest(tagIdList);
-        List<ReadResearchResponse> readResearchResponseList = researchService.findAllByTag(request);
-
-        return new Response<>(readResearchResponseList);
     }
 
 }

@@ -2,8 +2,8 @@ package com.nte.financeapi.domain.stock.service;
 
 import com.nte.financeapi.domain.stock.dto.StockDto;
 import com.nte.financeapi.domain.stock.dto.response.ReadStockListResponse;
-import com.nte.financedcore.domain.Stock;
-import com.nte.financedcore.repository.StockRepository;
+import com.nte.financecore.domain.Stock;
+import com.nte.financecore.repository.StockRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

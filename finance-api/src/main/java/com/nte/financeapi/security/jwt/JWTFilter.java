@@ -1,7 +1,7 @@
 package com.nte.financeapi.security.jwt;
 
 import com.nte.financeapi.security.dto.CustomUserDetails;
-import com.nte.financedcore.domain.User;
+import com.nte.financecore.domain.User;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

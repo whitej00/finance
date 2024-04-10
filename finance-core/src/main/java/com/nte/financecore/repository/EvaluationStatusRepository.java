@@ -1,6 +1,6 @@
-package com.nte.financedcore.repository;
+package com.nte.financecore.repository;
 
-import com.nte.financedcore.domain.EvaluationStatus;
+import com.nte.financecore.domain.EvaluationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EvaluationStatusRepository extends JpaRepository<EvaluationStatus, Long> {

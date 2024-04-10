@@ -1,6 +1,7 @@
 package com.nte.financeapi.security.api;
 
-import com.nte.financeapi.security.dto.JoinDto;
+import com.nte.financeapi.domain.research.dto.request.CreateResearchRequest;
+import com.nte.financeapi.security.dto.JoinUserRequest;
 import com.nte.financeapi.security.dto.LoginDto;
 import com.nte.financeapi.security.service.JoinService;
 import com.nte.financeapi.security.service.RefreshTokenService;
@@ -11,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,16 +31,17 @@ public class AuthController {
     private final JoinService joinService;
     private final RefreshTokenService refreshTokenService;
 
-    @PostMapping("/join")
+    @PostMapping(value = "/join", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Join", description = "회원 가입")
-    public String joinProcess(JoinDto joinDto){
+    public String joinProcess(@Valid @ModelAttribute JoinUserRequest joinUserRequest){
 
-        joinService.joinProcess(joinDto);
+        joinService.joinProcess(joinUserRequest);
 
         return "join success!";
     }
+
     @PostMapping(value = "/login", consumes = "multipart/form-data")
-    public String login(@RequestBody @Valid LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
+    public String login(@Valid @RequestBody LoginDto loginDto, HttpServletRequest request, HttpServletResponse response) {
 
         return "login";
     }

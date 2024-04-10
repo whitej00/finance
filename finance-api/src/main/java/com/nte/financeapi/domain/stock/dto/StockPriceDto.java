@@ -1,6 +1,6 @@
 package com.nte.financeapi.domain.stock.dto;
 
-import com.nte.financedcore.domain.StockPrice;
+import com.nte.financecore.domain.StockPrice;
 import lombok.*;
 
 import java.util.List;

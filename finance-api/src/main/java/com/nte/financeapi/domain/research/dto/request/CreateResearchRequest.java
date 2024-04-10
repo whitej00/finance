@@ -14,9 +14,9 @@ public class CreateResearchRequest {
     private Long userId;
     private String title;
     private String content;
-    private LocalDateTime createdDate;
+    private LocalDateTime createdDateTime;
     private LocalDate targetRangeStart;
     private LocalDate targetRangeEnd;
     private Long targetPrice;
-    private List<Long> researchTagIdList;
+    private Long stockId;
 }

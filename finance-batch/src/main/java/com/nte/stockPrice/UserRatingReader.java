@@ -1,14 +1,12 @@
 package com.nte.stockPrice;
 
-import com.nte.financedcore.domain.EvaluationStatus;
-import com.nte.financedcore.domain.Research;
-import com.nte.financedcore.domain.Stock;
-import com.nte.financedcore.domain.User;
-import com.nte.financedcore.repository.EvaluationStatusRepository;
-import com.nte.financedcore.repository.StockPriceRepository;
-import com.nte.financedcore.repository.StockRepository;
+import com.nte.financecore.domain.EvaluationStatus;
+import com.nte.financecore.domain.Research;
+import com.nte.financecore.domain.User;
+import com.nte.financecore.repository.EvaluationStatusRepository;
+import com.nte.financecore.repository.StockPriceRepository;
+import com.nte.financecore.repository.StockRepository;
 import com.nte.stockPrice.dto.EvaluationStatusDto;
-import com.nte.stockPrice.dto.StockDto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
@@ -43,12 +41,12 @@ public class UserRatingReader implements ItemReader<EvaluationStatusDto> {
 
         if (iterator.hasNext()) {
             EvaluationStatus evaluationStatus = iterator.next();
-            Research research = evaluationStatus.getResearch();
-            User user = research.getUser();
-            Stock stock = research.getResearchTagList().get(0).getTag().getStockTagList().get(0).getStock();
+            User user = evaluationStatus.getUser();
 
 
-            return EvaluationStatusDto.builder().build();
+            return EvaluationStatusDto.builder().
+
+                    build();
         }
         else {
 

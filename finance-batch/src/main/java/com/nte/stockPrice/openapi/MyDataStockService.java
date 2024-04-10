@@ -1,7 +1,7 @@
 package com.nte.stockPrice.openapi;
 
-import com.nte.financedcore.domain.Stock;
-import com.nte.financedcore.repository.StockRepository;
+import com.nte.financecore.domain.Stock;
+import com.nte.financecore.repository.StockRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

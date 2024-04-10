@@ -1,6 +1,6 @@
 package com.nte.financeapi.security.dto;
 
-import com.nte.financedcore.domain.User;
+import com.nte.financecore.domain.User;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

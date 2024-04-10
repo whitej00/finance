@@ -1,8 +1,8 @@
 package com.nte.financeapi.security.service;
 
 import com.nte.financeapi.security.dto.CustomUserDetails;
-import com.nte.financedcore.domain.User;
-import com.nte.financedcore.repository.UserRepository;
+import com.nte.financecore.domain.User;
+import com.nte.financecore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.nte.financedcore.domain;
+package com.nte.financecore.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -15,19 +15,24 @@ import java.util.List;
 public class Research {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "research")
-    List<ResearchTag> researchTagList = new ArrayList<>();
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "stock_id")
+    private Stock stock;
+
     @OneToOne(mappedBy = "research")
     private EvaluationStatus evaluationStatus;
+
+    @OneToMany(mappedBy = "research")
+    private List<Comment> commentList = new ArrayList<>();
+
 
     private String title;
     private String content;
@@ -39,23 +44,26 @@ public class Research {
 
     private Long targetPrice;
 
-    public void addResearchTag(ResearchTag researchTag){
-        this.researchTagList.add(researchTag);
-        researchTag.setResearch(this);
-    }
     public void setUser(User user){
         this.user = user;
         user.addResearch(this);
     }
 
-    public void setEvaluationStatus(EvaluationStatus evaluationStatus){
-        this.evaluationStatus = evaluationStatus;
-        evaluationStatus.setResearch(this);
+    public void setStock(Stock stock){
+        this.stock = stock;
+        stock.addResearch(this);
     }
 
+    public void setEvaluationStatus(EvaluationStatus evaluationStatus){
+        this.evaluationStatus = evaluationStatus;
+    }
+
+    public void addComment(Comment comment){
+        this.commentList.add(comment);
+    }
 
     @Builder
-    public Research(List<ResearchTag> researchTagList, User user, EvaluationStatus evaluationStatus, String title, String content, LocalDateTime createdDate, LocalDate targetRangeStart, LocalDate targetRangeEnd, Long targetPrice) {
+    public Research(User user, Stock stock, String title, String content, LocalDateTime createdDate, LocalDate targetRangeStart, LocalDate targetRangeEnd, Long targetPrice) {
         this.title = title;
         this.content = content;
         this.createdDate = createdDate;
@@ -63,12 +71,7 @@ public class Research {
         this.targetRangeEnd = targetRangeEnd;
         this.targetPrice = targetPrice;
 
-        for(ResearchTag researchTag : researchTagList){
-            this.addResearchTag(researchTag);
-        }
-
         this.setUser(user);
-
-        this.setEvaluationStatus(evaluationStatus);
+        this.setStock(stock);
     }
 }

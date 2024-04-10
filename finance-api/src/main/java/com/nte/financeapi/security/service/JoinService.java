@@ -1,23 +1,28 @@
 package com.nte.financeapi.security.service;
 
-import com.nte.financeapi.security.dto.JoinDto;
-import com.nte.financedcore.domain.User;
-import com.nte.financedcore.repository.UserRepository;
+import com.nte.financeapi.security.dto.JoinUserRequest;
+import com.nte.financecore.domain.Rating;
+import com.nte.financecore.domain.User;
+import com.nte.financecore.repository.RatingRepository;
+import com.nte.financecore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class JoinService {
 
     private final UserRepository userRepository;
+    private final RatingRepository ratingRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void joinProcess(JoinDto joinDto){
+    @Transactional
+    public void joinProcess(JoinUserRequest request){
 
-        String username = joinDto.getUsername();
-        String password = joinDto.getPassword();
+        String username = request.getUsername();
 
         Boolean isExist = userRepository.existsByUsername(username);
 
@@ -26,10 +31,19 @@ public class JoinService {
             return;
         }
 
-        userRepository.save(User.builder()
+        Rating rating = Rating.builder().build();
+
+        ratingRepository.save(rating);
+
+        User user = User.builder()
                 .username(username)
-                .password(bCryptPasswordEncoder.encode(password))
+                .password(bCryptPasswordEncoder.encode(request.getPassword()))
+                .createdDateTime(request.getCreatedDateTime())
+                .updatedDateTime(request.getUpdatedDateTime())
                 .role("ROLE_ADMIN")
-                .build());
+                .rating(rating)
+                .build();
+
+        userRepository.save(user);
     }
 }

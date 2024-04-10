@@ -1,5 +1,6 @@
 package com.nte;
 
+import com.nte.stockPrice.openapi.MyDataStockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
@@ -21,6 +22,7 @@ public class BatchApplication implements CommandLineRunner {
 
     private final JobLauncher jobLauncher;
     private final Job job;
+    private final MyDataStockService myDataStockService;
 
     public static void main(String[] args) {
         SpringApplication.run(BatchApplication.class, args);
@@ -28,6 +30,8 @@ public class BatchApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+//        myDataStockService.read();
+
         JobParameters params = new JobParametersBuilder()
                 .addLocalDate("time", LocalDate.now())
                 .toJobParameters();

@@ -3,10 +3,10 @@ package com.nte.financeapi.security.service;
 
 import com.nte.financeapi.security.dto.RefreshTokenDto;
 import com.nte.financeapi.security.jwt.JWTUtil;
-import com.nte.financedcore.domain.RefreshToken;
-import com.nte.financedcore.domain.User;
-import com.nte.financedcore.repository.RefreshTokenRepository;
-import com.nte.financedcore.repository.UserRepository;
+import com.nte.financecore.domain.RefreshToken;
+import com.nte.financecore.domain.User;
+import com.nte.financecore.repository.RefreshTokenRepository;
+import com.nte.financecore.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class RefreshTokenService {
+public class   RefreshTokenService {
 
     private final UserRepository userRepository;
     private final RefreshTokenRepository refreshRepository;

@@ -1,8 +1,8 @@
 package com.nte.stockPrice.dto;
 
-import com.nte.financedcore.domain.EvaluationStatus;
-import com.nte.financedcore.domain.Research;
-import com.nte.financedcore.domain.User;
+import com.nte.financecore.domain.EvaluationStatus;
+import com.nte.financecore.domain.Research;
+import com.nte.financecore.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.nte.financedcore.domain;
+package com.nte.financecore.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -17,7 +17,7 @@ import static jakarta.persistence.FetchType.LAZY;
 public class StockPrice {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     //날짜
     private LocalDate baseDate;
@@ -43,7 +43,7 @@ public class StockPrice {
 
     public void setStock(Stock stock){
         this.stock = stock;
-        stock.getPriceList().add(this);
+        stock.getStockPriceList().add(this);
     }
 
     public StockPrice(LocalDate baseDate, Long openingPrice, Long closingPrice, Long lowPrice, Long highPrice, Long tradeVolume, Long tradeValue, Long marketCap) {

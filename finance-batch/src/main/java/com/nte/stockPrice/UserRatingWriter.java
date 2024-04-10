@@ -1,18 +1,12 @@
 package com.nte.stockPrice;
 
-import com.nte.financedcore.domain.Stock;
-import com.nte.financedcore.domain.StockPrice;
-import com.nte.financedcore.repository.StockPriceRepository;
-import com.nte.financedcore.repository.StockRepository;
+import com.nte.financecore.repository.StockPriceRepository;
+import com.nte.financecore.repository.StockRepository;
 import com.nte.stockPrice.dto.EvaluationStatusDto;
-import com.nte.stockPrice.dto.StockDto;
-import com.nte.stockPrice.dto.StockPriceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor

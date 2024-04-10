@@ -1,6 +1,6 @@
-package com.nte.financedcore.repository;
+package com.nte.financecore.repository;
 
-import com.nte.financedcore.domain.Stock;
+import com.nte.financecore.domain.Stock;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

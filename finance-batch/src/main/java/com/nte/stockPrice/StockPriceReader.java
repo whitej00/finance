@@ -1,8 +1,8 @@
 package com.nte.stockPrice;
 
-import com.nte.financedcore.domain.Stock;
-import com.nte.financedcore.repository.StockPriceRepository;
-import com.nte.financedcore.repository.StockRepository;
+import com.nte.financecore.domain.Stock;
+import com.nte.financecore.repository.StockPriceRepository;
+import com.nte.financecore.repository.StockRepository;
 import com.nte.stockPrice.openapi.MyDataCommon;
 import com.nte.stockPrice.dto.StockDto;
 import jakarta.annotation.PostConstruct;
