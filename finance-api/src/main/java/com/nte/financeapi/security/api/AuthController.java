@@ -1,6 +1,5 @@
 package com.nte.financeapi.security.api;
 
-import com.nte.financeapi.domain.research.dto.request.CreateResearchRequest;
 import com.nte.financeapi.security.dto.JoinUserRequest;
 import com.nte.financeapi.security.dto.LoginDto;
 import com.nte.financeapi.security.service.JoinService;

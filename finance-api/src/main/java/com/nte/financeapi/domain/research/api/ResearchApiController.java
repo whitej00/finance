@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/researches")
 @RequiredArgsConstructor
-@Tag(name = "Research", description = "Research API")
+@Tag(name = "Research", description = "Research API (because of business logic, delete and update do not exist.")
 public class ResearchApiController {
 
     private final ResearchService researchService;
@@ -40,14 +40,14 @@ public class ResearchApiController {
     }
 
     @GetMapping
-    @Operation(summary = "Read all Research", description = "모든 Research들을 조회")
+    @Operation(summary = "Read all Research", description = "모든 Research 조회")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "성공",
                     content = {
                             @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ResearchResponseSchema.class)))
                     })
     })
-    public Response<List<ReadResearchResponse>> readResearchAll(){
+    public Response<List<ReadResearchResponse>> readResearchList(){
         List<ReadResearchResponse> readResearchResponseList = researchService.findAll();
         return new Response<>(readResearchResponseList);
     }
@@ -57,9 +57,9 @@ public class ResearchApiController {
     @GetMapping("/{id}")
     @Operation(summary = "Read Research by Id", description = "id로 research 조회")
     public Response<ReadResearchResponse> readResearchById(@PathVariable("id") Long id){
-        ReadResearchResponse response = researchService.findById(id);
+        ReadResearchResponse readResearchResponse = researchService.findById(id);
 
-        return new Response<>(response);
+        return new Response<>(readResearchResponse);
     }
 
 }

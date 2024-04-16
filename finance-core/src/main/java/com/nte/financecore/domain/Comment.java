@@ -38,8 +38,10 @@ public class Comment {
 
     private String content;
 
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
+    private Boolean updated;
+
+    private LocalDateTime createdDateTime;
+    private LocalDateTime updatedDateTime;
 
     public void setParent(Comment parent){
         this.parent = parent;
@@ -59,11 +61,16 @@ public class Comment {
         research.addComment(this);
     }
 
-    @Builder
-    public Comment(User user, Research research, String content, LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public void update(String content){
         this.content = content;
-        this.createdDate = createdDate;
-        this.updatedDate = updatedDate;
+        this.updated = Boolean.TRUE;
+    }
+
+    @Builder
+    public Comment(User user, Research research, String content, LocalDateTime createdDateTime, LocalDateTime updatedDateTime) {
+        this.content = content;
+        this.createdDateTime = createdDateTime;
+        this.updatedDateTime = updatedDateTime;
 
         this.setUser(user);
         this.setResearch(research);

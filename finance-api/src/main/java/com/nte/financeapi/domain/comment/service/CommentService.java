@@ -1,6 +1,8 @@
 package com.nte.financeapi.domain.comment.service;
 
 import com.nte.financeapi.domain.comment.dto.request.CreateCommentRequest;
+import com.nte.financeapi.domain.comment.dto.request.UpdateCommentRequest;
+import com.nte.financeapi.domain.comment.dto.response.ReadCommentResponse;
 import com.nte.financecore.domain.Comment;
 import com.nte.financecore.domain.Research;
 import com.nte.financecore.domain.User;
@@ -8,9 +10,14 @@ import com.nte.financecore.repository.CommentRepository;
 import com.nte.financecore.repository.ResearchRepository;
 import com.nte.financecore.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.webjars.NotFoundException;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -32,8 +39,8 @@ public class CommentService {
 
         Comment comment = Comment.builder()
                 .content(request.getContent())
-                .createdDate(request.getCreatedDateTime())
-                .updatedDate(request.getUpdatedDateTime())
+                .createdDateTime(request.getCreatedDateTime())
+                .updatedDateTime(request.getUpdatedDateTime())
                 .user(user)
                 .research(research)
                 .build();
@@ -46,5 +53,55 @@ public class CommentService {
         }
 
         commentRepository.save(comment);
+    }
+
+    public List<ReadCommentResponse> findAllByResearch(Long researchId){
+
+        List<Comment> commentList = commentRepository.findAllByResearchId(
+                researchId,
+                Sort.by(
+                        Sort.Order.asc("id").nullsFirst(),
+                        Sort.Order.asc("createdDateTime")
+                ));
+
+        Map<Long, ReadCommentResponse> dtoHashMap = new HashMap<>();
+        List<ReadCommentResponse> readCommentResponseList = new ArrayList<>();
+
+        commentList.forEach(comment -> {
+            ReadCommentResponse dto = ReadCommentResponse.builder()
+                    .id(comment.getId())
+                    .userId(comment.getUser().getId())
+                    .username(comment.getUser().getUsername())
+                    .content(comment.getContent())
+                    .createdDateTime(comment.getCreatedDateTime())
+                    .updatedDateTime(comment.getUpdatedDateTime())
+                    .build();
+
+            dtoHashMap.put(comment.getId(), dto);
+            if(comment.getParent() == null){
+                readCommentResponseList.add(dto);
+            }
+            else{
+                dtoHashMap.get(comment.getParent().getId()).getChildList().add(dto);
+            }
+        });
+
+        return readCommentResponseList;
+    }
+
+    @Transactional
+    public void deleteCommentById(@RequestParam Long id){
+
+        commentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void update(UpdateCommentRequest request){
+
+        Comment comment = commentRepository.findById(request.getId()).orElseThrow(
+                () -> new IllegalArgumentException("comment doesn't exist")
+        );
+
+        comment.update(request.getContent());
     }
 }
