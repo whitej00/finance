@@ -1,5 +1,7 @@
 package com.nte.financeapi.domain.research.api;
 
+import com.nte.financeapi.domain.comment.dto.response.ReadCommentResponse;
+import com.nte.financeapi.domain.comment.service.CommentService;
 import com.nte.financeapi.global.common.response.Response;
 import com.nte.financeapi.domain.research.service.ResearchService;
 import com.nte.financeapi.domain.research.dto.request.CreateResearchRequest;
@@ -31,6 +33,7 @@ import java.util.List;
 public class ResearchApiController {
 
     private final ResearchService researchService;
+    private final CommentService commentService;
 
     @PostMapping
     @Operation(summary = "Create Research", description = "research 생성")
@@ -41,25 +44,25 @@ public class ResearchApiController {
 
     @GetMapping
     @Operation(summary = "Read all Research", description = "모든 Research 조회")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "성공",
-                    content = {
-                            @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ResearchResponseSchema.class)))
-                    })
-    })
     public Response<List<ReadResearchResponse>> readResearchList(){
-        List<ReadResearchResponse> readResearchResponseList = researchService.findAll();
+        List<ReadResearchResponse> readResearchResponseList = researchService.readResearchList();
         return new Response<>(readResearchResponseList);
     }
-    private static class ResearchResponseSchema extends Response<List<Research>> {
-    }
+
 
     @GetMapping("/{id}")
-    @Operation(summary = "Read Research by Id", description = "id로 research 조회")
+    @Operation(summary = "Read Research by Id", description = "id로 Research 조회")
     public Response<ReadResearchResponse> readResearchById(@PathVariable("id") Long id){
-        ReadResearchResponse readResearchResponse = researchService.findById(id);
+        ReadResearchResponse readResearchResponse = researchService.readResearchById(id);
 
         return new Response<>(readResearchResponse);
     }
 
+    @GetMapping("/{id}/comments")
+    @Operation(summary = "Read Comment that Research has", description = "Research가 가진 Comment 조회")
+    public Response<List<ReadCommentResponse>> readCommentListByResearch(@RequestParam Long id){
+        List<ReadCommentResponse> readCommentResponseList = commentService.readCommentListByResearch(id);
+
+        return new Response<>(readCommentResponseList);
+    }
 }

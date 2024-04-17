@@ -8,6 +8,9 @@ build/
 ### key ###
 application-key.yml
 
+### Docker ###
+Dockerfile
+
 ### STS ###
 .apt_generated
 .classpath

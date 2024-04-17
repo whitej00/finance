@@ -56,7 +56,7 @@ public class ResearchService {
         evaluationStatusRepository.save(evaluationStatus);
     }
 
-    public ReadResearchResponse findById(Long id){
+    public ReadResearchResponse readResearchById(Long id){
 
         Research research = researchRepository.findById(id).get();
 
@@ -71,7 +71,7 @@ public class ResearchService {
                 .build();
     }
 
-    public List<ReadResearchResponse> findAll(){
+    public List<ReadResearchResponse> readResearchList(){
 
         List<Research> researchList = researchRepository.findAll();
 
@@ -88,4 +88,37 @@ public class ResearchService {
                 .toList();
     }
 
+    public List<ReadResearchResponse> readResearchListByStock(Long id){
+
+        List<Research> researchList = researchRepository.findAllByStockId(id);
+
+        return researchList.stream()
+                .map(research -> ReadResearchResponse.builder()
+                        .username(research.getUser().getUsername())
+                        .title(research.getTitle())
+                        .content(research.getContent())
+                        .createdDate(research.getCreatedDate())
+                        .targetRangeStart(research.getTargetRangeStart())
+                        .targetRangeEnd(research.getTargetRangeEnd())
+                        .targetPrice(research.getTargetPrice())
+                        .build())
+                .toList();
+    }
+
+    public List<ReadResearchResponse> readResearchListByUser(Long id){
+
+        List<Research> researchList = researchRepository.findAllByUserId(id);
+
+        return researchList.stream()
+                .map(research -> ReadResearchResponse.builder()
+                        .username(research.getUser().getUsername())
+                        .title(research.getTitle())
+                        .content(research.getContent())
+                        .createdDate(research.getCreatedDate())
+                        .targetRangeStart(research.getTargetRangeStart())
+                        .targetRangeEnd(research.getTargetRangeEnd())
+                        .targetPrice(research.getTargetPrice())
+                        .build())
+                .toList();
+    }
 }

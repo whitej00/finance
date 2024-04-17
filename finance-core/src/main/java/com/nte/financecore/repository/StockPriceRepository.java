@@ -7,10 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface StockPriceRepository extends JpaRepository<StockPrice, Long> {
 
     @Nullable
     @Query("select max(s.baseDate) from StockPrice s where s.stock.id = :id")
     LocalDate getLatestLocalDate(@Param("id") Long id);
+
+    List<StockPrice> findAllByStockId(Long id);
 }

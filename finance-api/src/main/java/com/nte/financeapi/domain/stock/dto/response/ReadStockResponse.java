@@ -20,10 +20,11 @@ public class ReadStockResponse {
     private List<ReadStockPriceResponse> readStockPriceResponseList = new ArrayList<>();
 
     @Builder
-    public ReadStockResponse(Long id, String stockCode, String name, Long marketCap) {
+    public ReadStockResponse(Long id, String stockCode, String name, Long marketCap, List<ReadStockPriceResponse> readStockPriceResponseList) {
         this.id = id;
         this.stockCode = stockCode;
         this.name = name;
         this.marketCap = marketCap;
+        this.readStockPriceResponseList = readStockPriceResponseList;
     }
 }

@@ -28,14 +28,6 @@ public class CommentApiController {
         commentService.createComment(request);
     }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Read all Comment By id", description = "research별 모든 Comment 조회")
-    public Response<List<ReadCommentResponse>> readCommentListByResearch(@RequestParam Long id){
-        List<ReadCommentResponse> readCommentResponseList = commentService.findAllByResearch(id);
-
-        return new Response<>(readCommentResponseList);
-    }
-
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete Comment By id", description = "Comment 삭제")
     public void deleteCommentById(@RequestParam Long id){

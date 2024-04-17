@@ -16,8 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.webjars.NotFoundException;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional(readOnly = true)
@@ -55,10 +57,44 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public List<ReadCommentResponse> findAllByResearch(Long researchId){
+    public List<ReadCommentResponse> readCommentListByResearch(Long researchId){
 
         List<Comment> commentList = commentRepository.findAllByResearchId(
                 researchId,
+                Sort.by(
+                        Sort.Order.asc("id").nullsFirst(),
+                        Sort.Order.asc("createdDateTime")
+                ));
+
+        Map<Long, ReadCommentResponse> dtoHashMap = new HashMap<>();
+        List<ReadCommentResponse> readCommentResponseList = new ArrayList<>();
+
+        commentList.forEach(comment -> {
+            ReadCommentResponse dto = ReadCommentResponse.builder()
+                    .id(comment.getId())
+                    .userId(comment.getUser().getId())
+                    .username(comment.getUser().getUsername())
+                    .content(comment.getContent())
+                    .createdDateTime(comment.getCreatedDateTime())
+                    .updatedDateTime(comment.getUpdatedDateTime())
+                    .build();
+
+            dtoHashMap.put(comment.getId(), dto);
+            if(comment.getParent() == null){
+                readCommentResponseList.add(dto);
+            }
+            else{
+                dtoHashMap.get(comment.getParent().getId()).getChildList().add(dto);
+            }
+        });
+
+        return readCommentResponseList;
+    }
+
+    public List<ReadCommentResponse> readCommentListByUser(Long userId){
+
+        List<Comment> commentList = commentRepository.findAllByUserId(
+                userId,
                 Sort.by(
                         Sort.Order.asc("id").nullsFirst(),
                         Sort.Order.asc("createdDateTime")
