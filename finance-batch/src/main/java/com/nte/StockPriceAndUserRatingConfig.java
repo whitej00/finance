@@ -1,8 +1,14 @@
 package com.nte;
 
-import com.nte.stockPrice.*;
-import com.nte.stockPrice.dto.EvaluationStatusDto;
-import com.nte.stockPrice.dto.StockDto;
+import com.nte.dto.EvaluationStatusDto;
+import com.nte.dto.StockDto;
+import com.nte.processor.StockPriceProcessor;
+import com.nte.processor.UserRatingProcessor;
+import com.nte.reader.StockPriceReader;
+import com.nte.reader.UserRatingReader;
+import com.nte.tasklet.StockTasklet;
+import com.nte.writer.StockPriceWriter;
+import com.nte.writer.UserRatingWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -27,10 +33,20 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class StockPriceAndUserRatingConfig {
 
     @Bean
-    public Job stockPriceAndUserRatingJob(JobRepository jobRepository, Step stockPriceStep, Step userRatingStep) {
+    public Job stockPriceAndUserRatingJob(JobRepository jobRepository,
+                                          Step stockStep, Step stockPriceStep, Step userRatingStep) {
         return new JobBuilder("stockPriceAndUserRatingJob", jobRepository)
-                .start(stockPriceStep)
+                .start(stockStep)
+                .next(stockPriceStep)
                 .next(userRatingStep)
+                .build();
+    }
+
+    @Bean
+    public Step stockStep(JobRepository jobRepository, PlatformTransactionManager transactionManager,
+                          StockTasklet stockTasklet){
+        return new StepBuilder("stockStep", jobRepository)
+                .tasklet(stockTasklet, transactionManager)
                 .build();
     }
 

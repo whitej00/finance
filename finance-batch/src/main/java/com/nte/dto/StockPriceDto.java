@@ -1,4 +1,4 @@
-package com.nte.stockPrice.dto;
+package com.nte.dto;
 
 import lombok.*;
 

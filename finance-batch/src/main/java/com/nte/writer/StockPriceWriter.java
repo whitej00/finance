@@ -1,11 +1,11 @@
-package com.nte.stockPrice;
+package com.nte.writer;
 
+import com.nte.dto.StockDto;
+import com.nte.dto.StockPriceDto;
 import com.nte.financecore.domain.Stock;
 import com.nte.financecore.domain.StockPrice;
 import com.nte.financecore.repository.StockPriceRepository;
 import com.nte.financecore.repository.StockRepository;
-import com.nte.stockPrice.dto.StockDto;
-import com.nte.stockPrice.dto.StockPriceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
@@ -26,7 +26,6 @@ public class StockPriceWriter implements ItemWriter<StockDto> {
             List<StockPriceDto> stockPriceDtoList = stockDto.getStockPriceDtoList();
 
             Stock stock = stockRepository.findById(stockDto.getId()).get();
-            System.out.println("stock.getName() = " + stock.getName());
 
             for (StockPriceDto dto : stockPriceDtoList){
                 StockPrice stockPrice = new StockPrice(

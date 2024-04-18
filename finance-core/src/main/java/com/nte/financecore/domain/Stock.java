@@ -40,11 +40,7 @@ public class Stock {
         this.evaluationStatusList.add(evaluationStatus);
     }
 
-
-    public Stock(String name) {
-        this.name = name;
-    }
-
+    @Builder
     public Stock(String stockCode, String name, Long marketCap) {
         this.stockCode = stockCode;
         this.name = name;

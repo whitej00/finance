@@ -1,8 +1,8 @@
-package com.nte.stockPrice;
+package com.nte.writer;
 
 import com.nte.financecore.repository.StockPriceRepository;
 import com.nte.financecore.repository.StockRepository;
-import com.nte.stockPrice.dto.EvaluationStatusDto;
+import com.nte.dto.EvaluationStatusDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;

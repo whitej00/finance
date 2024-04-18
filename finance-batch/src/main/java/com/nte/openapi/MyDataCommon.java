@@ -1,4 +1,4 @@
-package com.nte.stockPrice.openapi;
+package com.nte.openapi;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

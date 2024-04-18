@@ -1,4 +1,4 @@
-package com.nte.stockPrice.dto;
+package com.nte.dto;
 
 import com.nte.financecore.domain.EvaluationStatus;
 import com.nte.financecore.domain.Research;

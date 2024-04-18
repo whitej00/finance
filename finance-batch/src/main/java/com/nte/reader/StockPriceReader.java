@@ -1,10 +1,10 @@
-package com.nte.stockPrice;
+package com.nte.reader;
 
+import com.nte.dto.StockDto;
 import com.nte.financecore.domain.Stock;
 import com.nte.financecore.repository.StockPriceRepository;
 import com.nte.financecore.repository.StockRepository;
-import com.nte.stockPrice.openapi.MyDataCommon;
-import com.nte.stockPrice.dto.StockDto;
+import com.nte.openapi.MyDataCommon;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;

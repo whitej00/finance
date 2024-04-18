@@ -1,19 +1,9 @@
-package com.nte.stockPrice;
+package com.nte.processor;
 
-import com.nte.stockPrice.dto.EvaluationStatusDto;
-import com.nte.stockPrice.dto.StockDto;
-import com.nte.stockPrice.dto.StockPriceDto;
+import com.nte.dto.EvaluationStatusDto;
 import lombok.RequiredArgsConstructor;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor

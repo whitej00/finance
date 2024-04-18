@@ -1,7 +1,7 @@
-package com.nte.stockPrice;
+package com.nte.processor;
 
-import com.nte.stockPrice.dto.StockDto;
-import com.nte.stockPrice.dto.StockPriceDto;
+import com.nte.dto.StockDto;
+import com.nte.dto.StockPriceDto;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

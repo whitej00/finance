@@ -1,12 +1,11 @@
-package com.nte.stockPrice;
+package com.nte.reader;
 
 import com.nte.financecore.domain.EvaluationStatus;
-import com.nte.financecore.domain.Research;
 import com.nte.financecore.domain.User;
 import com.nte.financecore.repository.EvaluationStatusRepository;
 import com.nte.financecore.repository.StockPriceRepository;
 import com.nte.financecore.repository.StockRepository;
-import com.nte.stockPrice.dto.EvaluationStatusDto;
+import com.nte.dto.EvaluationStatusDto;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
