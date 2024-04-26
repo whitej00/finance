@@ -1,4 +1,4 @@
-package com.nte.reader;
+package com.nte.chunk;
 
 import com.nte.financecore.domain.EvaluationStatus;
 import com.nte.financecore.domain.User;

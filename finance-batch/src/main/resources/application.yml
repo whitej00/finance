@@ -3,3 +3,5 @@ spring:
     import:
       - classpath:application-core.yml
       - classpath:application-key.yml
+
+spring.batch.job.enabled: false

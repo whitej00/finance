@@ -1,4 +1,4 @@
-package com.nte.processor;
+package com.nte.chunk;
 
 import com.nte.dto.EvaluationStatusDto;
 import lombok.RequiredArgsConstructor;

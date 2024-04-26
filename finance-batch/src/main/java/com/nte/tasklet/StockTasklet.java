@@ -2,7 +2,7 @@ package com.nte.tasklet;
 
 import com.nte.financecore.domain.Stock;
 import com.nte.financecore.repository.StockRepository;
-import com.nte.openapi.MyDataCommon;
+import com.nte.openapi.MyDataApiService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
@@ -21,7 +21,7 @@ import java.util.*;
 public class StockTasklet implements Tasklet {
 
     private final StockRepository stockRepository;
-    private final MyDataCommon mydataCommon;
+    private final MyDataApiService mydataApiService;
     private final String MARKET_CAPITALIZATION = "5000000000000"; // 5조
 
     private Set<String> stockNameHashSet = new HashSet<>();
@@ -40,7 +40,7 @@ public class StockTasklet implements Tasklet {
         map.put("numOfRows", "10");
         map.put("beginMrktTotAmt", MARKET_CAPITALIZATION);
 
-        String json = mydataCommon.read(map);
+        String json = mydataApiService.read(map);
 
         JSONParser jsonParser = new JSONParser();
 
@@ -69,7 +69,7 @@ public class StockTasklet implements Tasklet {
                     .build());
         }
 
-        stockRepository.saveAllAndFlush(stockList);
+        stockRepository.saveAll(stockList);
 
         return RepeatStatus.FINISHED;
     }

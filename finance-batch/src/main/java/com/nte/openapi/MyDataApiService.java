@@ -12,7 +12,7 @@ import java.util.Map;
 
 @Slf4j
 @Service
-public class MyDataCommon {
+public class MyDataApiService {
 
     @Value("${mydata.key}")
     private String KEY;

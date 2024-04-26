@@ -1,4 +1,4 @@
-package com.nte.processor;
+package com.nte.chunk;
 
 import com.nte.dto.StockDto;
 import com.nte.dto.StockPriceDto;

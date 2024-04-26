@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @SpringBootApplication
-public class BatchApplication {
+public class BatchApplication implements CommandLineRunner{
 
     private final JobLauncher jobLauncher;
     private final Job job;
@@ -21,5 +21,13 @@ public class BatchApplication {
     public static void main(String[] args) {
 
         SpringApplication.run(BatchApplication.class, args);
+    }
+    @Override
+    public void run(String... args) throws Exception {
+        JobParameters params = new JobParametersBuilder()
+                .addLocalDate("time", LocalDate.now())
+                .toJobParameters();
+
+        jobLauncher.run(job, params);
     }
 }

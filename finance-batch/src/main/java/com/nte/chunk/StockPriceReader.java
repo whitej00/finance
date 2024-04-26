@@ -1,10 +1,10 @@
-package com.nte.reader;
+package com.nte.chunk;
 
 import com.nte.dto.StockDto;
 import com.nte.financecore.domain.Stock;
 import com.nte.financecore.repository.StockPriceRepository;
 import com.nte.financecore.repository.StockRepository;
-import com.nte.openapi.MyDataCommon;
+import com.nte.openapi.MyDataApiService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemReader;
@@ -23,19 +23,24 @@ public class StockPriceReader implements ItemReader<StockDto> {
 
     private final StockRepository stockRepository;
     private final StockPriceRepository stockPriceRepository;
-    private final MyDataCommon mydataCommon;
+    private final MyDataApiService mydataApiService;
     private List<Stock> stockList;
     private Iterator<Stock> iterator;
 
-    @PostConstruct
-    private void initializeStocks() {
+//    @PostConstruct
+//    private void initializeStocks() {
+//
+//        this.stockList = stockRepository.findAll();
+//        this.iterator = stockList.iterator();
+//    }
 
-        this.stockList = stockRepository.findAll();
-        this.iterator = stockList.iterator();
-    }
 
     @Override
     public StockDto read() throws Exception {
+        if(iterator == null){
+            this.stockList = stockRepository.findAll();
+            this.iterator = stockList.iterator();
+        }
 
         if (iterator.hasNext()) {
             Stock stock = iterator.next();
@@ -59,7 +64,7 @@ public class StockPriceReader implements ItemReader<StockDto> {
 
             return StockDto.builder().
                     id(id).
-                    json(mydataCommon.read(map)).
+                    json(mydataApiService.read(map)).
                     build();
         } else {
 

@@ -1,4 +1,4 @@
-package com.nte.writer;
+package com.nte.chunk;
 
 import com.nte.financecore.repository.StockPriceRepository;
 import com.nte.financecore.repository.StockRepository;
